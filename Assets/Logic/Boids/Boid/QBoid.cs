@@ -37,6 +37,8 @@ namespace Boids
             public Vector3 Direction { get; private set; }
             public List<QBoid> Boids { get; private set; } = new List<QBoid>();
 
+            private bool _bounds = true;
+
 
 
         #endregion
@@ -68,22 +70,25 @@ namespace Boids
             /// </summary>
             void MoveBoid()
             {
-                if (UseSeparation)
+                if (_bounds)
                 {
-                    // Add separation
-                    Separation(SeparationStrength);
-                }
+                    if (UseSeparation)
+                    {
+                        // Add separation
+                        Separation(SeparationStrength);
+                    }
 
-                if (UseAlignment)
-                {
-                    // Add Alignment
-                    Alignment(AlignmentStrength);
-                }
+                    if (UseAlignment)
+                    {
+                        // Add Alignment
+                        Alignment(AlignmentStrength);
+                    }
 
-                if (UseCohesion)
-                {
-                    // Add Cohesion
-                    Cohesion(CohesionStrength);
+                    if (UseCohesion)
+                    {
+                        // Add Cohesion
+                        Cohesion(CohesionStrength);
+                    }
                 }
 
                 // Check if the boid is still in allowed bounds (Last override before apply).
@@ -121,6 +126,8 @@ namespace Boids
                 if (transform.position.x < -((bounds.x / 2) - 4) || transform.position.x > (bounds.x / 2) - 4 ||
                     transform.position.y < -((bounds.y / 2) - 4) || transform.position.y > (bounds.y / 2) - 4)
                 {
+                    _bounds = false;
+
                     // 1. Get the direction to the center of the scene (0, 0, 0)
                     Vector3 centerDir = (Vector3.zero - transform.position).normalized;
 
@@ -133,6 +140,10 @@ namespace Boids
 
                     // 4. Set final rotation using lerp (smooth movement).
                     Direction = Vector3.Lerp(Direction, dir, 0.1f).normalized;
+                }
+                else
+                {
+                    _bounds = true;
                 }
             }
 
