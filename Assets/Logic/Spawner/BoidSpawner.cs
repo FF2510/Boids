@@ -8,7 +8,7 @@ public class BoidSpawner : MonoBehaviour
 {
     public GameObject Boid;
     public int GridSize = 10;
-    public static Vector2 Bounds = new Vector2(75, 42.1875f);
+    public static Vector2 Bounds = new Vector2(55, 30.9375f);
     public static List<QBoid> Boids { get; private set; } = new List<QBoid>();
     private LineRenderer _lineRenderer;
 
@@ -19,13 +19,13 @@ public class BoidSpawner : MonoBehaviour
 
         // Setup line renderer valuew.
         _lineRenderer.positionCount = 5;
-        _lineRenderer.startWidth = 0.5f;
-        _lineRenderer.endWidth = 0.5f;
+        _lineRenderer.startWidth = 0.25f;
+        _lineRenderer.endWidth = 0.25f;
         _lineRenderer.loop = true;
         _lineRenderer.useWorldSpace = true;
         _lineRenderer.material = new Material(Shader.Find("Sprites/Default"));
-        _lineRenderer.startColor = Color.white;
-        _lineRenderer.endColor = Color.white;
+        _lineRenderer.startColor = Color.yellow;
+        _lineRenderer.endColor = Color.yellow;
         
         // Draw bonds.
         DrawBounds();
