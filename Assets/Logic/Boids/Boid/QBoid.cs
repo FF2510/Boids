@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using Boids.Optimisation;
 using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace Boids
 {
-    public sealed class QBoid : MonoBehaviour
+    public sealed class QBoid : MonoBehaviour, ITO2D
     {
         #region Settings
 
@@ -325,6 +326,17 @@ namespace Boids
                 }
 
                 return false;
+            }
+
+        #endregion
+
+
+        #region Interface Implementations
+
+            public Vector2 GetPosition()
+            {
+                // Return the position of this gameobject as v2.
+                return (Vector2)gameObject.transform.position;
             }
 
         #endregion
